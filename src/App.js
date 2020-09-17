@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import NewGameDialog from "./NewGameDialog";
+import Game from "./Game";
 
 function App() {
-  return (
+  const [opened, setOpened] = useState(false);
+  const [gameStated, setGameStarted] = useState(true);
+
+  return gameStated ? (
+    <div>
+      <Game />
+    </div>
+  ) : (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>로스트시티 점수계산기</h1>
+      <div>
+        <button onClick={() => setOpened(true)}>+ 새 게임</button>
+      </div>
+      <div>2020. 09. 10. A vs B</div>
+      {opened && <NewGameDialog onStartGame={() => setGameStarted(true)} />}
     </div>
   );
 }

@@ -1,13 +1,72 @@
+html,
 body {
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+}
+
+.CardStack {
+  width: 100%;
+}
+.CardStack .card {
+  width: 100%;
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+}
+.CardStack .card:hover {
+  background-color: #ccc;
+}
+
+.Modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 10px;
+}
+
+.Layout {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+}
+.Layout > * + * {
+  margin-left: 10px;
+}
+
+.GameBoard {
+  width: 100%;
+  height: 100px;
+  background-color: #400f00;
+}
+.GameBoard .card-slot {
+  border: 1px solid #ccc;
+  flex-grow: 1;
+}
+.GameBoard .card-slot.purple {
+  background-color: #351c42;
+}
+.GameBoard .card-slot.yellow {
+  background-color: #fbed41;
+}
+.GameBoard .card-slot.blue {
+  background-color: #3d5d97;
+}
+.GameBoard .card-slot.white {
+  background-color: #fefffe;
+}
+.GameBoard .card-slot.green {
+  background-color: #2e813e;
+}
+.GameBoard .card-slot.red {
+  background-color: #b62d27;
 }
