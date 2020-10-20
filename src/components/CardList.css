@@ -1,0 +1,6 @@
+.CardList {
+  width: 100%;
+}
+.CardList > * + * {
+  margin-top: 4px;
+}

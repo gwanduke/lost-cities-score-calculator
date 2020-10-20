@@ -1,3 +1,4 @@
+import "./Modal.css";
 import React from "react";
 import Portal from "./Portal";
 
