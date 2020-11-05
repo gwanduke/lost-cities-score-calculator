@@ -1,5 +1,7 @@
 # Lost Cities Score Calculator
 
-Lost Cities is board game. and scoring result is so hard.
+> http://lostcities.info
 
-Using this app, you can calculate score very easily. and all scores are saved unless empty browser cache.
+Lost Cities is a board game that is very difficult to calculate the score.
+
+This app makes it easy to calculate the score, and if the browser cache is not empty, all scores are saved.
