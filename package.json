@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
     "bootstrap": "^4.5.3",
     "date-fns": "^2.16.1",
     "mobx": "^5.15.7",
@@ -23,6 +20,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "node-sass": "^4.14.1",
     "scaff-cli": "^0.1.1"
   },
   "scripts": {
@@ -30,7 +28,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "scaffold": "scaff g",
+    "scaffold": "scaff g"
   },
   "eslintConfig": {
     "extends": "react-app"

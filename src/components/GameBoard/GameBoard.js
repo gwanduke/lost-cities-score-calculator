@@ -27,7 +27,15 @@ const GameBoard = observer(({ game }) => {
           </Button>
         )}
         <div>
-          <h2>🔥 {game.currentRoundNumber} 라운드 🔥</h2>
+          <h2>
+            <span role="img" aria-label="">
+              🔥
+            </span>{" "}
+            {game.currentRoundNumber} 라운드{" "}
+            <span role="img" aria-label="">
+              🔥
+            </span>
+          </h2>
           (총 {game.maxRound} 라운드)
         </div>
         {game.isLastRound ? (
