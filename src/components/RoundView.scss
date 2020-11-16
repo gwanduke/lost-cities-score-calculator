@@ -1,0 +1,10 @@
+.RoundView {
+  &__holder {
+    display: flex;
+  }
+
+  &__board {
+    height: 30px;
+    width: 100%;
+  }
+}

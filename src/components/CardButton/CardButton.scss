@@ -1,0 +1,48 @@
+.CardButton {
+  height: 28px;
+  border: 1px solid;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 300ms;
+
+  &--purple {
+    border-color: #924bb6;
+    background-color: #924bb6;
+  }
+  &--yellow {
+    border-color: #fbed41;
+    background-color: #fbed41;
+  }
+  &--blue {
+    border-color: #4d76c3;
+    background-color: #4d76c3;
+  }
+  &--white {
+    border-color: #cecece;
+    background-color: #cecece;
+  }
+  &--green {
+    border-color: #609078;
+    background-color: #609078;
+  }
+  &--red {
+    border-color: #b62d27;
+    background-color: #b62d27;
+  }
+
+  &--notSelected {
+    background-color: transparent;
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: line-through;
+    border-color: #ccc;
+    color: #ccc;
+  }
+}
