@@ -12,7 +12,7 @@ export const calculateColor = (numbers, negoCount) => {
   }
 
   let bonus = 0;
-  if (numbers.length >= 8) {
+  if (numbers.length + negoCount >= 8) {
     bonus = 20;
   }
 

@@ -11,4 +11,5 @@ test("", () => {
   expect(calculateColor([2, 3, 4, 5, 6, 7, 8, 9, 10], 3)).toBe(
     (-20 + 54) * 4 + 20
   );
+  expect(calculateColor([2, 3, 4, 5, 6], 3)).toBe((-20 + 20) * 4 + 20);
 });
