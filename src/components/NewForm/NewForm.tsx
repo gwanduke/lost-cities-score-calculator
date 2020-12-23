@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import "./NewForm.scss";
-// import PropTypes from "prop-types";
 import { observer } from "mobx-react";
 import { Link, useHistory } from "react-router-dom";
 
@@ -121,10 +120,5 @@ const NewForm = observer(({ store }) => {
     </div>
   );
 });
-
-NewForm.propTypes = {
-  // game: PropTypes.func,
-  // store: PropTypes.func,
-};
 
 export default NewForm;

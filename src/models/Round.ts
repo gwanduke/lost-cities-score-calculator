@@ -1,6 +1,7 @@
-import { getParent, types } from "mobx-state-tree";
+import { getParent, Instance, types } from "mobx-state-tree";
 import Card from "./Card";
 import { calculateColor } from "../utils/calculator";
+import { Color } from "types";
 
 const Round = types
   .model({
@@ -11,9 +12,13 @@ const Round = types
     get game() {
       return getParent(self, 2);
     },
+  }))
+  .views((self) => ({
     get board() {
-      return self.game.board;
+      return (self.game as any).board;
     },
+  }))
+  .views((self) => ({
     card(number, color) {
       return self.cards.filter(
         (card) => card.number === number && card.color === color
@@ -24,14 +29,14 @@ const Round = types
         (card) => card.player === player && card.color === color
       );
     },
-    score(player, color) {
+    score(player, color?) {
       if (!color) {
         return self.board.colors.reduce(
-          (acc, cur) => acc + self.score(player, cur),
+          (acc, cur) => acc + this.score(player, cur),
           0
         );
       }
-      const cards = self.cardsOf(player, color);
+      const cards = this.cardsOf(player, color);
       const numberCards = cards.filter((card) => !card.isNego);
       const negoCards = cards.filter((card) => card.isNego);
       return calculateColor(
@@ -52,36 +57,41 @@ const Round = types
     afterCreate() {
       if (self.cards.length === 0) {
         // Init cards.
-        const cards = [];
-        ["purple", "yellow", "blue", "white", "green", "red"].forEach(
-          (color) => {
-            // Init number cards.
-            [2, 3, 4, 5, 6, 7, 8, 9, 10].forEach((number) => {
-              cards.push(
-                Card.create({
-                  id: `${color}-${number}`,
-                  player: null,
-                  color,
-                  isNego: false,
-                  number,
-                })
-              );
-            });
-            // Init negoiation cards.
-            [-1, -2, -3].forEach((number) => {
-              cards.push(
-                Card.create({
-                  id: `N-${color}-${number}`,
-                  player: null,
-                  color,
-                  isNego: true,
-                  number,
-                })
-              );
-            });
-          }
-        );
-        self.cards = cards;
+        const cards: Instance<typeof Card>[] = [];
+        ([
+          "purple",
+          "yellow",
+          "blue",
+          "white",
+          "green",
+          "red",
+        ] as Color[]).forEach((color) => {
+          // Init number cards.
+          [2, 3, 4, 5, 6, 7, 8, 9, 10].forEach((number) => {
+            cards.push(
+              Card.create({
+                id: `${color}-${number}`,
+                player: null,
+                color,
+                isNego: false,
+                number,
+              })
+            );
+          });
+          // Init negoiation cards.
+          [-1, -2, -3].forEach((number) => {
+            cards.push(
+              Card.create({
+                id: `N-${color}-${number}`,
+                player: null,
+                color,
+                isNego: true,
+                number,
+              })
+            );
+          });
+        });
+        (self.cards as any) = cards;
       }
     },
     assignCard(card, player) {

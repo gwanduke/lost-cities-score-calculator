@@ -69,6 +69,4 @@ const Home = observer(({ store }) => {
   );
 });
 
-Home.propTypes = {};
-
 export default Home;

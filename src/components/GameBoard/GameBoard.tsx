@@ -2,7 +2,6 @@ import { observer } from "mobx-react";
 import React from "react";
 import RoundView from "../RoundView";
 import "./GameBoard.scss";
-// import PropTypes from "prop-types";
 import { Button } from "reactstrap";
 import { useHistory } from "react-router";
 
@@ -63,9 +62,5 @@ const GameBoard = observer(({ game }) => {
     </div>
   );
 });
-
-GameBoard.propTypes = {
-  // game: PropTypes.string,
-};
 
 export default GameBoard;

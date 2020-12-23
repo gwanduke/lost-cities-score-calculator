@@ -11,7 +11,7 @@ import RootStore from "./models/RootStore";
 
 const localStorageKey = "__lostCitiesInfo_store__";
 const initialState = localStorage.getItem(localStorageKey)
-  ? JSON.parse(localStorage.getItem(localStorageKey))
+  ? JSON.parse(localStorage.getItem(localStorageKey) || "")
   : {
       games: [],
       boards: [
@@ -79,7 +79,7 @@ function createTodoStore(snapshot) {
   if (snapshotListenerDestroyer) snapshotListenerDestroyer();
   if (store) destroy(store);
 
-  window.store = store = RootStore.create(snapshot);
+  store = RootStore.create(snapshot);
 
   snapshotListenerDestroyer = onSnapshot(store, (snapshot) => {
     localStorage.setItem(localStorageKey, JSON.stringify(snapshot));

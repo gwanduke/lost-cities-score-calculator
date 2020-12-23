@@ -64,8 +64,4 @@ const RoundView = observer(({ round, player1, player2, board }) => {
   );
 });
 
-RoundView.propTypes = {
-  // onClick: PropTypes.func,
-};
-
 export default RoundView;

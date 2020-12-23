@@ -3,6 +3,7 @@ import { types } from "mobx-state-tree";
 
 const Card = types
   .model({
+    id: types.optional(types.string, ""),
     player: types.maybeNull(types.reference(Player)),
     number: types.maybeNull(types.integer),
     color: types.union(

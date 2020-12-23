@@ -5,7 +5,7 @@ import { useHistory, useRouteMatch } from "react-router";
 import { Button, Table } from "reactstrap";
 
 const Result = ({ store }) => {
-  const match = useRouteMatch();
+  const match = useRouteMatch<{ id: string }>();
   const game = store.findGame(match.params.id);
   const player1 = game.players[0];
   const player2 = game.players[1];

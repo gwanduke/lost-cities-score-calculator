@@ -1,9 +1,10 @@
 import Player from "./Player";
-import { getRoot, types } from "mobx-state-tree";
+import { getRoot, Instance, types } from "mobx-state-tree";
 import Round from "./Round";
+import RootStore from "./RootStore";
 
 const Game = types
-  .model({
+  .model("Game", {
     id: types.identifier, // TODO:
     players: types.array(Player),
     rounds: types.array(Round),
@@ -20,14 +21,21 @@ const Game = types
       return self.players[1];
     },
     get board() {
-      return getRoot(self).boards.find((b) => b.id === self.boardId);
+      return getRoot<typeof RootStore>(self).boards.find(
+        (b) => b.id === self.boardId
+      );
     },
     get currentRound() {
       return self.rounds[self.currentRoundIndex];
     },
-    get currentRoundNumber() {
+    get currentRoundNumber(): number {
       return self.currentRoundIndex + 1;
     },
+    score(player) {
+      return self.rounds.reduce((acc, round) => round.score(player) + acc, 0);
+    },
+  }))
+  .views((self) => ({
     get isFirstRound() {
       return self.currentRoundNumber === 1;
     },
@@ -35,7 +43,7 @@ const Game = types
       return self.currentRoundNumber === self.maxRound;
     },
     get winner() {
-      let winner = null;
+      let winner: Instance<typeof Player> | null = null;
       const p1Score = self.score(self.player1);
       const p2Score = self.score(self.player2);
       if (p1Score > p2Score) {
@@ -47,8 +55,15 @@ const Game = types
       }
       return winner;
     },
-    score(player) {
-      return self.rounds.reduce((acc, round) => round.score(player) + acc, 0);
+  }))
+  .actions((self) => ({
+    addNewRound() {
+      self.rounds.push(
+        Round.create({
+          cards: [],
+          finished: false,
+        })
+      );
     },
   }))
   .actions((self) => ({
@@ -62,14 +77,6 @@ const Game = types
       if (!self.createdTimestamp) {
         self.createdTimestamp = Date.now();
       }
-    },
-    addNewRound() {
-      self.rounds.push(
-        Round.create({
-          cards: [],
-          finished: false,
-        })
-      );
     },
     addRound: (round) => {
       self.rounds.push(round);
@@ -86,12 +93,12 @@ const Game = types
     },
     nextRound() {
       if (self.currentRoundNumber === self.maxRound) {
-        self.finished = true;
-      } else {
-        self.currentRoundIndex += 1;
-        if (!self.rounds[self.currentRoundIndex]) {
-          self.addNewRound();
-        }
+        return;
+      }
+
+      self.currentRoundIndex += 1;
+      if (!self.rounds[self.currentRoundIndex]) {
+        self.addNewRound();
       }
     },
   }));

@@ -4,7 +4,21 @@ import "./CardList.scss";
 import PropTypes from "prop-types";
 import cn from "../../utils/cn";
 
-const CardList = ({ numbers, disabledNumbers, color, onClick, reversed }) => {
+type Props = {
+  numbers: number[];
+  disabledNumbers: number[];
+  color: string;
+  onClick: (number: number) => void;
+  reversed?: boolean;
+};
+
+const CardList = ({
+  numbers,
+  disabledNumbers,
+  color,
+  onClick,
+  reversed,
+}: Props) => {
   // TODO: optimize
   let allCardNumbers = [-1, -2, -3, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   reversed && allCardNumbers.reverse();
