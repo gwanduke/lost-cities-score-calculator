@@ -1,13 +1,14 @@
+import "./CardList.scss";
+
 import React from "react";
 import CardButton from "../CardButton";
-import "./CardList.scss";
-import PropTypes from "prop-types";
 import cn from "../../utils/cn";
+import { Color } from "types";
 
 type Props = {
   numbers: number[];
   disabledNumbers: number[];
-  color: string;
+  color: Color;
   onClick: (number: number) => void;
   reversed?: boolean;
 };
@@ -38,12 +39,6 @@ const CardList = ({
       ))}
     </div>
   );
-};
-
-CardList.propTypes = {
-  numbers: PropTypes.arrayOf(PropTypes.number),
-  color: PropTypes.oneOf(["purple", "red", "green", "blue", "white", "yellow"]),
-  onClick: PropTypes.func,
 };
 
 export default CardList;

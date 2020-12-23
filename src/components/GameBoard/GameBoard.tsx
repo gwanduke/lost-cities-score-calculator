@@ -1,11 +1,18 @@
-import { observer } from "mobx-react";
-import React from "react";
-import RoundView from "../RoundView";
 import "./GameBoard.scss";
+
+import React from "react";
+import { observer } from "mobx-react";
 import { Button } from "reactstrap";
 import { useHistory } from "react-router";
 
-const GameBoard = observer(({ game }) => {
+import RoundView from "../RoundView";
+import { IGame } from "../../models/Game";
+
+type Props = {
+  game: IGame;
+};
+
+const GameBoard = observer(({ game }: Props) => {
   const history = useHistory();
 
   return (

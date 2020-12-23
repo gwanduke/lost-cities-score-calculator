@@ -1,13 +1,13 @@
-import React, { useRef } from "react";
 import "./NewForm.scss";
+
+import React, { useRef } from "react";
 import { observer } from "mobx-react";
 import { Link, useHistory } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { v4 as uuidV4 } from "uuid";
 
 import BoardSample from "../BoardSample";
-
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import Game from "../../models/Game";
-import { v4 as uuidV4 } from "uuid";
 
 const NewForm = observer(({ store }) => {
   const gameRef = useRef(

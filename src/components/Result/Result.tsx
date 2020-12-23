@@ -1,6 +1,6 @@
-import React from "react";
 import "./Result.scss";
-// import PropTypes from "prop-types";
+
+import React from "react";
 import { useHistory, useRouteMatch } from "react-router";
 import { Button, Table } from "reactstrap";
 
@@ -80,10 +80,6 @@ const Result = ({ store }) => {
       </Button>
     </div>
   );
-};
-
-Result.propTypes = {
-  // TODO: store
 };
 
 export default Result;

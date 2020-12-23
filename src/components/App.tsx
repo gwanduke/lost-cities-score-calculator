@@ -1,5 +1,5 @@
-import { observer } from "mobx-react";
 import React from "react";
+import { observer } from "mobx-react";
 import { Route, Switch } from "react-router";
 
 import Home from "./Home";

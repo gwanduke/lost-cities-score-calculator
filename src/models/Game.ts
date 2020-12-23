@@ -103,4 +103,5 @@ const Game = types
     },
   }));
 
+export interface IGame extends Instance<typeof Game> {}
 export default Game;

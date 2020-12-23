@@ -1,5 +1,6 @@
-import React from "react";
 import "./Home.scss";
+
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Table, Button, Jumbotron, Badge } from "reactstrap";
 import { format } from "date-fns";

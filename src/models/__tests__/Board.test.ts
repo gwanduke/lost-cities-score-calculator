@@ -1,4 +1,4 @@
-import Board from "./Board";
+import Board from "../Board";
 
 test("", () => {
   const board = Board.create({

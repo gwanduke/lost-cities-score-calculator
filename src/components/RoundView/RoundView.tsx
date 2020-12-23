@@ -1,6 +1,6 @@
-import React from "react";
 import "./RoundView.scss";
-// import PropTypes from "prop-types";
+
+import React from "react";
 import { observer } from "mobx-react";
 import CardList from "../CardList";
 

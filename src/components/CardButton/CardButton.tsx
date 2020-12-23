@@ -1,9 +1,19 @@
-import React from "react";
 import "./CardButton.scss";
-import PropTypes from "prop-types";
-import cn from "../../utils/cn";
 
-const CardButton = ({ number, color, selected, disabled, onClick }) => {
+import React from "react";
+
+import cn from "../../utils/cn";
+import { Color } from "types";
+
+type Props = {
+  number: number;
+  color: Color;
+  selected: boolean;
+  disabled: boolean;
+  onClick: () => void;
+};
+
+const CardButton = ({ number, color, selected, disabled, onClick }: Props) => {
   return (
     <div
       className={cn(
@@ -17,13 +27,6 @@ const CardButton = ({ number, color, selected, disabled, onClick }) => {
       {number < 0 ? "💰" : number}
     </div>
   );
-};
-
-CardButton.propTypes = {
-  number: PropTypes.number,
-  selected: PropTypes.bool,
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func,
 };
 
 export default CardButton;
