@@ -1,0 +1,87 @@
+#!/usr/bin/env node
+require("dotenv").config();
+const path = require("path");
+const fs = require("fs");
+
+// See API, https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/
+const AWS = require("aws-sdk");
+const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
+const cloudfront = new AWS.CloudFront();
+
+const BUILD_PATH = path.join(__dirname, "../build");
+
+const promises = [];
+
+function uploadFile(filepath) {
+  const fileStream = fs.createReadStream(filepath);
+  fileStream.on("error", function (err) {
+    console.log("File Error", err);
+  });
+  const uploadParams = {
+    Bucket: process.env.BUCKET_NAME,
+    Key: filepath.replace(BUILD_PATH + "/", ""),
+    Body: fileStream,
+  };
+
+  const promise = new Promise((resolve, reject) => {
+    s3.upload(uploadParams, function (err, data) {
+      if (err) {
+        console.log("error", err);
+        reject();
+      }
+      if (data) {
+        console.log("upload success", data.Location);
+        resolve();
+      }
+    });
+  });
+  promises.push(promise);
+}
+
+function doJob(filepath) {
+  const isDir = fs.lstatSync(filepath).isDirectory();
+
+  if (isDir) {
+    visitDir(filepath, doJob);
+  } else {
+    uploadFile(filepath);
+  }
+}
+
+function visitDir(dirPath, callback) {
+  try {
+    const files = fs.readdirSync(dirPath);
+
+    files.forEach((file) => {
+      const filepath = path.join(dirPath, file);
+      callback(filepath);
+    });
+  } catch (err) {
+    if (err) {
+      return console.log("Unable to scan directory", err);
+    }
+  }
+}
+
+function invalidate() {
+  const params = {
+    DistributionId: process.env.CF_DIST_ID,
+    InvalidationBatch: {
+      CallerReference: Date.now().toString(),
+      Paths: {
+        Quantity: "1",
+        Items: ["/"],
+      },
+    },
+  };
+  cloudfront.createInvalidation(params, function (err, data) {
+    if (err) console.log(err, err.stack);
+    // an error occurred
+    else console.log(data); // successful response
+  });
+}
+
+visitDir(BUILD_PATH, doJob);
+Promise.all(promises).then(() => {
+  invalidate();
+});
