@@ -1,6 +1,6 @@
 import "./NewForm.scss";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { observer } from "mobx-react";
 import { Link, useHistory } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
@@ -8,6 +8,8 @@ import { v4 as uuidV4 } from "uuid";
 
 import BoardSample from "../BoardSample";
 import Game from "../../models/Game";
+
+const ObserverInput = observer((props) => <Input {...props} />);
 
 const NewForm = observer(({ store }) => {
   const gameRef = useRef(
@@ -36,6 +38,12 @@ const NewForm = observer(({ store }) => {
 
   const history = useHistory();
 
+  useEffect(() => {
+    if (!game.boardId) {
+      game.setBoard(store.boards[0]);
+    }
+  }, [game, store.boards]);
+
   return (
     <div>
       <h1>새 게임</h1>
@@ -62,13 +70,15 @@ const NewForm = observer(({ store }) => {
         </FormGroup>
         <FormGroup>
           <Label for="exampleEmail">최대 라운드 수</Label>
-          <Input
+          <ObserverInput
             variant="filled"
             label="Max Round"
             name="1"
-            type="number"
-            value={game.maxRound}
-            onChange={(e) => game.changeMaxRound(Number(e.target.value))}
+            type="text"
+            value={game.maxRound || 0}
+            onChange={(e) =>
+              game.changeMaxRound(Number(e.target.value.toString()) || 0)
+            }
           />
         </FormGroup>
       </Form>
